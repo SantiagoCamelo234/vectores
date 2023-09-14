@@ -9,14 +9,83 @@ Welcome to GDB Online.
     
 #include <iostream>
 #include <math.h>
+#include <string.h>
+
+using namespace std;
+
+void instrucciones();
+int menu();
+double funcionMagnitud(int i, int j, int k);
+void funcionSumaVectores(int iA, int jA, int kA, int iB, int jB, int kB); 
+void funcionRestarVectores(int iA1, int jA1,int kA1,int iB1,int jB1,int kB1);
+int multiplicacionEscalar(int iA2, int jA2,int kA2, int iB2, int jB2, int  kB2);
+void multiplicacionVectorial(int i1, int j1,int  k1,int i2,int j2,int k2);
 
 using namespace std;
 
 int main (){
+    
+    instrucciones();
+    int opcion;
+    opcion = menu();
+    do{
+    
+    
+    switch (opcion)
+    {
+    case 1:
+        //magnitud de un vector
+        int i, j,k;
+        double x;
+         x = funcionMagnitud(i,j,k);
+        cout << "La magnitud del vector es de: " << x;
+        break; 
+    case 2:
+        // suma de vectores
+        int iA, jA, kA, iB, jB, kB;
+        funcionSumaVectores(iA, jA, kA, iB, jB, kB);
+        break;
+    case 3: 
+        // resta de vectores
+       int iA1, jA1, kA1, iB1, jB1, kB1;
+       funcionRestarVectores(iA1, jA1, kA1, iB1, jB1, kB1);
+        break;
+    case 4:
+        //multiplicacion escalar
+        int iA2, jA2, kA2, iB2, jB2, kB2;
+        int y;
+        y =  multiplicacionEscalar(iA2, jA2, kA2, iB2, jB2, kB2);
+        cout << "El resultado escalar de los vectores es de: " << y;
+        break;
+    case 5:
+        /*se multiplican los vectores con resultado vectorial */
+         int i1, j1, k1, i2, j2, k2;
+         multiplicacionVectorial(i1,  j1,  k1, i2, j2, k2);
+         break;
+    case 0: 
+        cout << "Gracias por usar mi calculadora";
+        break;
+        
+    default:
+        cout<< "Digite un numero valido en la barra de opciones";
+        break;
+    }}while(opcion != 0);
+    return 0;
+    }
+    
+     
+
+
+
+
+void instrucciones(){
     cout<< "Para un vector dado de la forma V = Axi + Ayj + Azk  como por ejemplo A = 3i + 4j -5k ingrese los valores de la siguiente forma: \n ";
     cout<< "Ingrese valor para i: 3 \n";
     cout << "Ingrese valor para j: 4 \n";
     cout << "Ingrese valor para k: -5 \n";
+}
+
+int menu(){
 
     cout<<"A continuacion se le mostrara las operaciones que puede realizar a los vectores: \n ";
     cout<< "1. Hallar magnitud de un vector\n";
@@ -24,15 +93,18 @@ int main (){
     cout<< "3. Resta de dos vectores\n";
     cout<< "4. Multiplicacion estelar de dos vectores\n";
     cout<< "5. Multiplicacion vectorial de dos vectores\n";
+    cout << "0. Salida del programa";
     int opcion;
     cout<<"Por favor digite la opcion que desea realizar: \n";
     cin>> opcion;
 
-    switch (opcion)
-    {
-    case 1:
-        /* se halla la magnitud de vectores */
-        int i, j, k, elevados;
+    return opcion;
+
+}
+
+double funcionMagnitud(int i, int j, int k){
+    /* se halla la magnitud de vectores */
+        int elevados;
         double magnitud;
         cout<< "Ingrese valor de i: "; cin>>i;
         cout<< "Ingrese valor de j: "; cin>>j;
@@ -40,16 +112,18 @@ int main (){
     /*se elevan los numeros al cuadrado y se suman*/
         elevados = pow(i,2)+pow(j,2)+pow(k,2);
         magnitud = sqrt(elevados);
-        cout<< "La magnitud del vector dado es de: "<< magnitud;
-        break;
-    case 2:
-        /* se suman los vectores*/
-        int iA,jA,kA;
+        return magnitud;
+        
+}
+
+void funcionSumaVectores(int iA, int jA, int kA, int iB, int jB, int kB){
+    /* se suman los vectores*/
+        
         cout<< "A continuacion ingrese los valores del Vector A: \n";
         cout<< "Ingrese valor de i: ";cin>>iA;
         cout<< "Ingrese valor de j: ";cin>>jA;
         cout<< "Ingrese valor de k: ";cin>>kA;
-        int iB, jB, kB;
+        
         cout<< "A continuacion ingrese los valores del Vector B:";
         cout<< "Ingrese los valores de i: "; cin>>iB;
         cout<< "Ingrese los valores de j:"; cin>> jB;
@@ -65,19 +139,15 @@ int main (){
             cout<< "El resultado de la suma es de: " << suma_i << "i "<< " + "<<suma_j << "j " <<  suma_k <<"k ";
         else if(suma_k >0)
             cout<< "El resultado de la suma es de: " << suma_i << "i "<< suma_j << "j " << "+" << suma_k <<"k ";
+}
 
-        
-
-        break;
-    case 3: 
-        /* se restan los vectores*/
-
-        int iA1, jA1, kA1;
+void funcionRestarVectores(int iA1, int jA1,int kA1,int iB1,int jB1,int kB1){
+  
         cout<< "A continuacion ingrese los valores del Vector A: \n";
         cout<< "Ingrese valor de i: ";cin>>iA1;
         cout<< "Ingrese valor de j: ";cin>>jA1;
         cout<< "Ingrese valor de k: ";cin>>kA1;
-        int iB1, jB1, kB1;
+        
         cout<< "A continuacion ingrese los valores del Vector B: \n";
         cout<< "Ingrese los valores de i: "; cin>>iB1;
         cout<< "Ingrese los valores de j:"; cin>> jB1;
@@ -87,23 +157,23 @@ int main (){
         resta_j = jA1 + (-1*jB1);
         resta_k = kA1 + (-1*kB1);
         if(resta_j > 0 & resta_k >0)
-        cout<< "El resultado de la suma es de: " << resta_i << "i "<< " + "<<resta_j << "j " << " + "<< resta_k <<"k ";
+        cout<< "El resultado de la resta es de: " << resta_i << "i "<< " + "<<resta_j << "j " << " + "<< resta_k <<"k ";
         else if(resta_j > 0)
-            cout<< "El resultado de la suma es de: " << resta_i << "i "<< " + "<<resta_j << "j " <<  resta_k <<"k ";
+            cout<< "El resultado de la resta es de: " << resta_i << "i "<< " + "<<resta_j << "j " <<  resta_k <<"k ";
         else if(resta_k >0)
-            cout<< "El resultado de la suma es de: " << resta_i << "i "<< resta_j << "j " << "+" << resta_k <<"k ";
+            cout<< "El resultado de la resta es de: " << resta_i << "i "<< resta_j << "j " << "+" << resta_k <<"k ";
         
-        break;
-    case 4: 
-        /*se multiplican los vectores con resultado escalar */
-        
-        int iA2, jA2, kA2;
-        cout<< "A continuacion ingrese los valores del Vector A: \n";
+}
+
+int multiplicacionEscalar(int iA2, int jA2,int kA2, int iB2, int jB2, int  kB2){
+     /*se multiplican los vectores con resultado escalar */
+
+
+ cout<< "A continuacion ingrese los valores del Vector A: \n";
         cout<< "Ingrese valor de i: ";cin>>iA2;
         cout<< "Ingrese valor de j: ";cin>>jA2;
-        cout<< "Ingrese valor de k: ";cin>>kA2;
-        int iB2, jB2, kB2;
-        cout<< "A continuacion ingrese los valores del Vector B: \n";
+        cout<< "Ingrese valor de k: ";cin>>kA2;        
+cout<< "A continuacion ingrese los valores del Vector B: \n";
         cout<< "Ingrese los valores de i: "; cin>>iB2;
         cout<< "Ingrese los valores de j:"; cin>> jB2;
         cout<< "Ingrese los valores de k: "; cin>>kB2;
@@ -113,19 +183,17 @@ int main (){
         multiplicacion_k = kA2 * kB2;
         
         suma_multiplicaciones = (multiplicacion_i) + (multiplicacion_j) + (multiplicacion_k);
-        
-        cout<< "El resultado escalar de la multiplicacion es de: " << suma_multiplicaciones;
-        break;
-    case 5:
-        /*se multiplican los vectores con resultado vectorial */
-        
-         int i1, j1, k1;
-        cout<< "A continuacion ingrese los valores del Vector A: \n";
+        return suma_multiplicaciones;
+}
+
+void multiplicacionVectorial(int i1, int j1,int  k1,int i2,int j2,int k2){
+    /*se multiplican los vectores con resultado vectorial */
+
+cout<< "A continuacion ingrese los valores del Vector A: \n";
         cout<< "Ingrese valor de i: ";cin>>i1;
         cout<< "Ingrese valor de j: ";cin>>j1;
         cout<< "Ingrese valor de k: ";cin>>k1;
-        int i2, j2, k2;
-        cout<< "A continuacion ingrese los valores del Vector B: \n";
+cout<< "A continuacion ingrese los valores del Vector B: \n";
         cout<< "Ingrese los valores de i: "; cin>>i2;
         cout<< "Ingrese los valores de j:"; cin>> j2;
         cout<< "Ingrese los valores de k: "; cin>>k2;
@@ -148,20 +216,4 @@ int main (){
          cout << iFinal << "i " <<  " + " << jFinal << "j " <<  kFinal << "k";
         else if(jFinal < 0 & kFinal > 0)
          cout << iFinal << "i "  << jFinal << "j " << " + "  << kFinal << "k";
-         
-         
-        
-        
-        break;
-        
-    default:
-        cout<< "Digite un numero valido en la barra de opciones";
-        break;
-    }
-     
-
-
 }
-
-
-
